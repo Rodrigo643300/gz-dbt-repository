@@ -19,9 +19,10 @@ sources:
              description: the amount paid by the customer to purchase the product. revenue = quantity * selling_price
            - name: quanitity
              description: the quantity of products purchased for a given order
-        tests: 
-           - unique:
-               column_name: "(orders_id || '-' || pdt_id)"
+                      # Freshness testing
+             loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+             freshness:
+              warn_after: {count: 90, period: day}      
       - name: product
         identifier: raw_gz_product
         description: produst of Greenweez
